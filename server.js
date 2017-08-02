@@ -6,20 +6,48 @@ var app = express();
 app.use(morgan('combined'));
 
 
-var articleOne ={
-  title: 'Article One | Gowrishankar',
-  heading: 'Article-one',
-  date: 'Aug 2, 2017',
-  content:    `
-          <p>
-            This is the first content of Article.In the search bar type in the name of the package you are looking to download. I don’t like installing package this way because you ending have a list of packages that you are not really looking for.  I like going through the command line to install packages.
-          </p>
-          <p>
-            Whether you’re in high school or college, you spend a lot of time taking notess. You have several excellent options for doing so, and which works best for you depends a lot on your note taking style. It’s best to pick software and stick to it so you don’t to worry about moving stuff around later. Here’s how to make the right choice from the outset.
-          </p>
-          <p>
-            Standing 1 ft 4 in  tall, Pikachu were the first "Electric-type" Pokémon created, their design intended to revolve around the concept of electricity.[9] They appear as Pika-like creatures that have short, yellow fur with brown markings covering their backs and parts of their lightning bolt shaped tails. They have black-tipped, pointed ears and red circular pouches on their cheeks, which can spark with electricity.[10] In Pokémon Diamond and Pearl, gender differences were introduced; a female Pikachu now has an indent at the end of its tail, giving it a heart-shaped appearance. They attack primarily by projecting electricity from their bodies at their targets. Within the context of the franchise, a Pikachu can transform, or "evolve" into a Raichu when exposed to a "Thunderstone". In later titles an evolutionary predecessor was introduced named "Pichu", which evolves into a Pikachu after establishing a close friendship with its trainer.
-          </p>`
+var articles ={
+  'article-one': {
+    title: 'Article One | Gowrishankar',
+    heading: 'Article-one',
+    date: 'Aug 2, 2017',
+    content:    `
+            <p>
+              This is the first content of Article.In the search bar type in the name of the package you are looking to download. I don’t like installing package this way because you ending have a list of packages that you are not really looking for.  I like going through the command line to install packages.
+            </p>
+            <p>
+              Whether you’re in high school or college, you spend a lot of time taking notess. You have several excellent options for doing so, and which works best for you depends a lot on your note taking style. It’s best to pick software and stick to it so you don’t to worry about moving stuff around later. Here’s how to make the right choice from the outset.
+            </p>
+            <p>
+              Standing 1 ft 4 in  tall, Pikachu were the first "Electric-type" Pokémon created, their design intended to revolve around the concept of electricity.[9] They appear as Pika-like creatures that have short, yellow fur with brown markings covering their backs and parts of their lightning bolt shaped tails. They have black-tipped, pointed ears and red circular pouches on their cheeks, which can spark with electricity.[10] In Pokémon Diamond and Pearl, gender differences were introduced; a female Pikachu now has an indent at the end of its tail, giving it a heart-shaped appearance. They attack primarily by projecting electricity from their bodies at their targets. Within the context of the franchise, a Pikachu can transform, or "evolve" into a Raichu when exposed to a "Thunderstone". In later titles an evolutionary predecessor was introduced named "Pichu", which evolves into a Pikachu after establishing a close friendship with its trainer.
+            </p>`
+  },
+  'article-two': {
+    title: 'Article Two | Gowrishankar',
+    heading: 'Article-Two',
+    date: 'Aug 23, 2017',
+    content:    `
+            <p>
+              This is the first content of Article.In the search bar type in the name of the package you are looking to download. I don’t like installing package this way because you ending have a list of packages that you are not really looking for.  I like going through the command line to install packages.
+            </p>
+            <p>
+              Standing 1 ft 4 in  tall, Pikachu were the first "Electric-type" Pokémon created, their design intended to revolve around the concept of electricity.[9] They appear as Pika-like creatures that have short, yellow fur with brown markings covering their backs and parts of their lightning bolt shaped tails. They have black-tipped, pointed ears and red circular pouches on their cheeks, which can spark with electricity.[10] In Pokémon Diamond and Pearl, gender differences were introduced; a female Pikachu now has an indent at the end of its tail, giving it a heart-shaped appearance. They attack primarily by projecting electricity from their bodies at their targets. Within the context of the franchise, a Pikachu can transform, or "evolve" into a Raichu when exposed to a "Thunderstone". In later titles an evolutionary predecessor was introduced named "Pichu", which evolves into a Pikachu after establishing a close friendship with its trainer.
+            </p>`
+
+  },
+  'article-three': {
+    title: 'Article Three | Gowrishankar',
+    heading: 'Article-Three',
+    date: 'Mar 2, 2017',
+    content:    `
+            <p>
+              This is the first content of Article.In the search bar type in the name of the package you are looking to download. I don’t like installing package this way because you ending have a list of packages that you are not really looking for.  I like going through the command line to install packages.
+            </p>
+            <p>
+              Whether you’re in high school or college, you spend a lot of time taking notess. You have several excellent options for doing so, and which works best for you depends a lot on your note taking style. It’s best to pick software and stick to it so you don’t to worry about moving stuff around later. Here’s how to make the right choice from the outset.
+            </p>`
+
+  }
 }
 
 function createTemplate(data){
@@ -67,6 +95,14 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
+app.get('/:articleName',function (req, res) {
+  //articleName == article-one
+  //articles[articleName] = {} content object for article one
+  var articleName = req.params.articleName;
+  res.send(createTemplate(articles[articleName]));
+})
+
+/*
 app.get('/article-one',function (req, res) {
   res.send(createTemplate(articleOne));
 });
@@ -80,6 +116,7 @@ app.get('/article-three',function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
 
 });
+*/
 
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
