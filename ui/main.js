@@ -22,7 +22,8 @@ button.onclick = function(){
 
   //Make a request
   request.open('GET','http://localhost/counter',true);
-  request.open('GET','http://gows007.imad.hasura-app.io/counter',true);
+  //request.open('GET','http://gows007.imad.hasura-app.io/counter',true);
+  request.send(null);
 
   //Render the variable in the correct <span>
   counter = counter+1;
