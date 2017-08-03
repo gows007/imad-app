@@ -22,10 +22,27 @@ button.onclick = function(){
 
   //Make a request
   request.open('GET','http://localhost/counter',true);
-  request.open('GET','http://gows007.imad.hasura-app.io/counter',true);
+  //request.open('GET','http://gows007.imad.hasura-app.io/counter',true);
   request.send(null);
 
   //Render the variable in the correct <span>
   counter = counter+1;
 
+};
+
+//Submit name
+var nameInput = document.getElementById('name');
+var name = nameInput.value;
+var submit = document.getElementById('submit_btn');
+submit.onclick = function(){
+  //Make a request to server and send the name
+
+  //Capture list of names and render it as a list
+  var names = ['name 1','name 2','name 3'];
+  var list = '';
+  for(var i=0; i<names.length; i++){
+    list += '<li>' + names[i] + '</li>';
+  }
+  var ul = document.getElementById('nameList');
+  ul.innerHTML = list;
 };

@@ -125,6 +125,17 @@ app.get('/article-three',function (req, res) {
 });
 */
 
+var names = [];
+app.get('/submit-name/:name', function(req, res){
+  //Get the name from request
+  var name = req.params.name;
+  names.push(name);
+  //Only a String can be sent, not a variable
+  //Use JSON
+  res.send(JSON.stringify(names));
+
+});
+
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
 });
@@ -136,6 +147,8 @@ app.get('/ui/main.js', function (req, res) {
 app.get('/ui/madi.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
 });
+
+
 
 
 // Do not change port, otherwise your app won't run on IMAD servers
