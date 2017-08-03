@@ -95,12 +95,19 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
+var counter = 0;
+app.get('/counter', function(req, res){
+  counter = counter+1;
+  //Only striing send as response, hence the conversion to string
+  res.send(counter.toString());
+});
+
 app.get('/:articleName',function (req, res) {
   //articleName == article-one
   //articles[articleName] = {} content object for article one
   var articleName = req.params.articleName;
   res.send(createTemplate(articles[articleName]));
-})
+});
 
 /*
 app.get('/article-one',function (req, res) {
