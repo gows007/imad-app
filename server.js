@@ -3,7 +3,7 @@ var morgan = require('morgan');
 var path = require('path');
 
 //For postgre
-var Pool = require('pg');
+var Pool = require('pg').Pool;
 var config={
   user: 'gows007',
   database : 'gows007',
