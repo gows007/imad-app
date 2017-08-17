@@ -113,6 +113,21 @@ app.get('/submit-name', function(req, res){ //URL: /submit-name?name-xxxx
 
 });
 
+var comments = [];
+var names = [];
+app.get('/submit-comment', function(req, res){ //URL: /submit-name?name-xxxx
+  //Get the name from request
+  var comment = req.query.comment;
+  var name = req.query.name;
+  comment = comment + '<br />'+name+'<br />';
+  comments.push(comment);
+  //names.push(name);
+  //Only a String can be sent, not a variable
+  //Use JSON
+  res.send(JSON.stringify(comments));
+
+});
+
 
 app.get('/:articleName',function (req, res) {
   //articleName == article-one
