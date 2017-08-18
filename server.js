@@ -123,7 +123,7 @@ app.get('/test-db',function(req,res){
       console.log(err, res);
       res.status(500).send(err.toString());
     }else{
-      console.out(pool);
+      console.log(pool);
       res.send(JSON.stringify(result.rows));
     }
 });
