@@ -114,6 +114,7 @@ app.get('/', function (req, res) {
 });
 
 var pool = new Pool(config);
+
 app.get('/test-db',function(req,res){
     //make a select request
     //return a resonse with results
@@ -122,7 +123,7 @@ app.get('/test-db',function(req,res){
       console.log(err, res);
       res.status(500).send(err.toString());
     }else{
-      res.send(JSON.stringify(result));
+      res.send(JSON.stringify(result.rows));
     }
 });
 });
