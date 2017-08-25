@@ -136,11 +136,7 @@ app.post('/login', function(req,res){
                       
                        //Set a session available as a lib ans use cookies
                       req.session.auth = {userId: result.rows[0].id};
-                      //set cookie with a session id
-                      //internally, on sever side, maps the session id to an objet id
-                      //{auth = {userId}}
                       res.send('credentials correct!');
-                      
                       
                   }else{
                      res.status(403).send('username/password iss invalid'); 
