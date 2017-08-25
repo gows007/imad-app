@@ -2,6 +2,8 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 var crypto = require('crypto');
+var bodyParser = require('body-parser'); //Its a express lib to get data from post
+
 
 //For postgre
 var Pool = require('pg').Pool;
@@ -20,10 +22,12 @@ var config_local={
   port: '5432',
   password: process.env.DB_PASSWORD
 };
+var pool = new Pool(config);
+
 
 var app = express();
 app.use(morgan('combined'));
-
+app.use(bodyParser.json());//For every incoming content, if they are JSON, load it in req.body as in app.post('/create-user',function (req, res)
 
 function createTemplate(data){
   var title = data.title;
@@ -85,7 +89,29 @@ app.get('/hash/:input',function (req, res){
     
 })
 
-var pool = new Pool(config);
+//post request, check notes
+app.post('/create-user',function (req, res){
+    
+    //user-name, password
+    //JSON request
+    var username = req.body.username;
+    var password = req.body.password;
+    var salt = cypto.getRandomBytes(128).toString('hex');
+    var dbString = hash(password,salt);
+    pool.query('INSERT INTO "user" (username,password)VALUES($1, $2)',[username, dbString],function(err,result) {
+        if(err){
+            console.log(err, res);
+            res.status(500).send(err.toString());
+        }else{
+            console.log(pool);
+            res.send('User sucessfully created: '+username);
+        }
+
+    })
+    
+})
+
+
 
 app.get('/test-db',function(req,res){
     //make a select request
