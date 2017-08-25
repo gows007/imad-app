@@ -151,7 +151,10 @@ app.post('/login', function(req,res){
 });
 
 app.get('/check-login',function(req,res){
-    res.send('Data: '+req.session.auth.userId.toString());
+     if(req.session){
+         res.send('session Available');
+     }
+  //  res.send('Data: '+req.session.auth.userId.toString());
    if(req.session && req.session.auth && req.session.auth.userId){
        res.send('You are logged in: '+req.session.auth.userId.toString());
    } 
