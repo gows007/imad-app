@@ -151,7 +151,7 @@ app.post('/login', function(req,res){
 });
 
 app.get('/check-login',function(req,res){
-     if(req.session){
+     if(req.session.auth){
          res.send('session Available');
      }else{
        if(req.session && req.session.auth && req.session.auth.userId){
