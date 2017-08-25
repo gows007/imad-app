@@ -34,12 +34,12 @@ app.use(session({
     secret: 'randomSecretText',
     cookie: {maxAge:1000*60*60*24}
 }));*/
-
+/*
 app.use(cookieSession({
     name: 'session',
     keys: ['key1','key2']
 }));
-
+*/
 
 
 function createTemplate(data){
