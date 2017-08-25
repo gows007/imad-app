@@ -3,7 +3,7 @@ var morgan = require('morgan');
 var path = require('path');
 var crypto = require('crypto');
 var bodyParser = require('body-parser'); //Its a express lib to get data from post
-
+var session = require('express-session');
 
 //For postgre
 var Pool = require('pg').Pool;
