@@ -126,8 +126,8 @@ app.post('/login', function(req,res){
               }else{
                   //Match password
                   var dbString = result.rows[0].password;
-                  get salt value and hash siince the passowrd in DB has the op as des in hash() function
-                  var salt = dbString.split('$').[2];
+                  //get salt value and hash siince the passowrd in DB has the op as des in hash() function
+                  var salt = dbString.split('$')[2];
                   var hashedPassword = hash(password,salt);
                   if(hashedPassword == dbString){
                       res.send('credentials correct!');
