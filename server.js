@@ -28,10 +28,11 @@ var pool = new Pool(config);
 var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
+/*
 app.use(session({
     secret: 'keyboard cat',
     cookie: { maxAge: 1000*60*60*60*24*30 }
-}));
+}));*/
 
 
 
@@ -137,7 +138,7 @@ app.post('/login', function(req,res){
                   var hashedPassword = hash(password,salt);
                   if(hashedPassword == dbString){
                       
-                      req.session.auth = {userId: result.rows[0].id};
+                      //req.session.auth = {userId: result.rows[0].id};
                       res.send('credentials correct!');
                       //Set a session available as a lib ans use cookies
                       
