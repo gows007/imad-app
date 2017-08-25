@@ -3,7 +3,7 @@ var morgan = require('morgan');
 var path = require('path');
 var crypto = require('crypto');
 var bodyParser = require('body-parser'); //Its a express lib to get data from post
-var session = require('express-session');
+
 
 //For postgre
 var Pool = require('pg').Pool;
@@ -28,10 +28,7 @@ var pool = new Pool(config);
 var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());//For every incoming content, if they are JSON, load it in req.body as in app.post('/create-user',function (req, res)
-app.use(session({
-    secret: 'someRandomSecretValue',
-    cookie:{maxAge:1000*60*60*60*24*30}
-}));
+
 function createTemplate(data){
   var title = data.title;
   var heading = data.heading;
@@ -90,7 +87,7 @@ app.get('/hash/:input',function (req, res){
     var hashedString = hash(req.params.input,salt);
     res.send(hashedString);
     
-});
+})
 
 //post request, check notes
 app.post('/create-user',function (req, res){
@@ -133,10 +130,8 @@ app.post('/login', function(req,res){
                   var salt = dbString.split('$')[2];
                   var hashedPassword = hash(password,salt);
                   if(hashedPassword == dbString){
-                      
-                       //Set a session available as a lib ans use cookies
-                      req.session.auth = {userId: result.rows[0].id};
                       res.send('credentials correct!');
+                      //Set a session available as a lib ans use cookies
                       
                   }else{
                      res.status(403).send('username/password iss invalid'); 
@@ -150,13 +145,7 @@ app.post('/login', function(req,res){
     
 });
 
-app.get('/check-login',function(req,res){
-   if(req.session && req.session.auth && req.session.auth.userId){
-       res.send('You are loged in'+req.session.auth.userId.toString());
-   } else{
-       res.send('You are not logged in');
-   }
-});
+
 
 app.get('/test-db',function(req,res){
     //make a select request
