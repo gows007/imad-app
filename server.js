@@ -94,6 +94,7 @@ app.post('/create-user',function (req, res){
     
     //user-name, password
     //JSON request
+    //{"username":"gows007", "password":"password"}
     var username = req.body.username;
     var password = req.body.password;
     var salt = cypto.getRandomBytes(128).toString('hex');
