@@ -28,9 +28,6 @@ var pool = new Pool(config);
 var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());//For every incoming content, if they are JSON, load it in req.body as in app.post('/create-user',function (req, res)
-app.use(session({
-    secret: 'someRandomSecretValue',
-}));
 function createTemplate(data){
   var title = data.title;
   var heading = data.heading;
