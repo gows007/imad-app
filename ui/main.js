@@ -34,6 +34,7 @@ button.onclick = function(){
 
 var submit = document.getElementById('submit_btn');
 submit.onclick = function(){
+    console.log('Submit button clicked');
   //Make a request to server and send the name
   var request = new XMLHttpRequest();
   //Capture the response and store it in a variable
