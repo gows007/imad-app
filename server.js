@@ -108,9 +108,40 @@ app.post('/create-user',function (req, res){
             res.send('User sucessfully created: '+username);
         }
 
-    })
+    });
     
-})
+});
+
+app.post('/login', function(req,res){
+    var username = req.body.username;
+    var password = req.body.password;
+
+    pool.query('SELECT * FROM "user" username = $1',[username],function(err,result) {
+        if(err){
+            console.log(err, res);
+            res.status(500).send(err.toString());
+        }else{
+               if(result.rows.length === 0){
+                  res.status(403).send('username/password iss invalid');
+              }else{
+                  //Match password
+                  var dbString = result.rows[0].password;
+                  get salt value and hash siince the passowrd in DB has the op as des in hash() function
+                  var salt = dbString.split('$').[2];
+                  var hashedPassword = hash(password,salt);
+                  if(hashedPassword == dbString){
+                      res.send('credentials correct!');
+                  }else{
+                     res.status(403).send('username/password iss invalid'); 
+                  }
+              }
+            res.send('User sucessfully created: '+username);
+        }
+
+    });
+    
+    
+});
 
 
 
