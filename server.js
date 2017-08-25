@@ -3,7 +3,7 @@ var morgan = require('morgan');
 var path = require('path');
 var crypto = require('crypto');
 var bodyParser = require('body-parser'); //Its a express lib to get data from post
-
+var session = require('express-session');
 
 //For postgre
 var Pool = require('pg').Pool;
@@ -28,7 +28,9 @@ var pool = new Pool(config);
 var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());//For every incoming content, if they are JSON, load it in req.body as in app.post('/create-user',function (req, res)
-
+app.use(session({
+    secret: 'someRandomSecretValue',
+}));
 function createTemplate(data){
   var title = data.title;
   var heading = data.heading;
@@ -87,7 +89,7 @@ app.get('/hash/:input',function (req, res){
     var hashedString = hash(req.params.input,salt);
     res.send(hashedString);
     
-})
+});
 
 //post request, check notes
 app.post('/create-user',function (req, res){
