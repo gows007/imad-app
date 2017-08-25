@@ -4,6 +4,7 @@ var path = require('path');
 var crypto = require('crypto');
 var bodyParser = require('body-parser'); //Its a express lib to get data from post
 var session = require('express-session');
+var cookieSession = require('cookie-session');
 
 //For postgre
 var Pool = require('pg').Pool;
@@ -28,10 +29,15 @@ var pool = new Pool(config);
 var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
-
+/*
 app.use(session({
     secret: 'randomSecretText',
     cookie: {maxAge:1000*60*60*24}
+}));*/
+
+app.use(cookieSession({
+    name: 'session',
+    keys: ['key1','key2']
 }));
 
 
@@ -138,7 +144,7 @@ app.post('/login', function(req,res){
                   var hashedPassword = hash(password,salt);
                   if(hashedPassword == dbString){
                       
-                      //req.session.auth = {userId: result.rows[0].id};
+                      req.session.auth = {userId: result.rows[0].id};
                       res.send('credentials correct!');
                       //Set a session available as a lib ans use cookies
                       
