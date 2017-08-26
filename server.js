@@ -137,9 +137,9 @@ app.post('/login', function(req,res){
                   var salt = dbString.split('$')[2];
                   var hashedPassword = hash(password,salt);
                   if(hashedPassword == dbString){
-                      
-                      req.session.auth = {userId: result.rows[0].id};
                       res.send('credentials correct!');
+                      req.session.auth = {userId: result.rows[0].id};
+                      
                       //Set a session available as a lib ans use cookies
                       
                   }else{
