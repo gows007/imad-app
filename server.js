@@ -26,9 +26,9 @@ var pool = new Pool(config);
 
 
 var app = express();
-
 app.use(session({
-    secret: 'randomSecretText'
+    secret: 'randomSecretText',
+    cookie: { maxAge: 1000*60*60*24}
 }));
 app.use(morgan('combined'));
 app.use(bodyParser.json());
