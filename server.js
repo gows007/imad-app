@@ -146,7 +146,6 @@ app.post('/login', function(req,res){
                      res.status(403).send('username/password iss invalid');
                   }
               }
-            res.send('User sucessfully created: '+username);
         }
 
     });
