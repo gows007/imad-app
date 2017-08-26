@@ -28,7 +28,9 @@ var pool = new Pool(config);
 var app = express();
 app.use(session({
     secret: 'randomSecretText',
-    cookie: { maxAge: 1000 * 60 * 60 * 60 * 24 * 30}
+    cookie: { maxAge: 1000 * 60 * 60 * 60 * 24 * 30},
+    saveUninitialized: true,
+    resave: true
 }));
 app.use(morgan('combined'));
 app.use(bodyParser.json());
@@ -90,12 +92,12 @@ app.get('/hash/:input',function (req, res){
     var salt = 'this-is-a-random-String';
     var hashedString = hash(req.params.input,salt);
     res.send(hashedString);
-    
+
 });
 
 //post request, check notes
 app.post('/create-user',function (req, res){
-    
+
     //user-name, password
     //JSON request
     //{"username":"gows007", "password":"password"}
@@ -113,7 +115,7 @@ app.post('/create-user',function (req, res){
         }
 
     });
-    
+
 });
 
 app.post('/login', function(req,res){
@@ -136,19 +138,19 @@ app.post('/login', function(req,res){
                   if(hashedPassword == dbString){
                       res.send('credentials correct!');
                       req.session.auth = {userId: result.rows[0].id};
-                      
+
                       //Set a session available as a lib ans use cookies
-                      
+
                   }else{
-                     res.status(403).send('username/password iss invalid'); 
+                     res.status(403).send('username/password iss invalid');
                   }
               }
             res.send('User sucessfully created: '+username);
         }
 
     });
-    
-    
+
+
 });
 
 app.get('/check-login',function(req,res){
@@ -157,7 +159,7 @@ app.get('/check-login',function(req,res){
      }else{
        if(req.session && req.session.auth && req.session.auth.userId){
            res.send('You are logged in: '+req.session.auth.userId.toString());
-       } 
+       }
        else{
            res.send('You are not logged in');
        }
@@ -225,7 +227,7 @@ app.get('/article/:articleName',function (req, res) {
       if(result.rows.length === 0){
           res.status(404).send('article not found');
       }else{
-          var articleData = result.rows[0]; 
+          var articleData = result.rows[0];
           res.send(createTemplate(articleData));
       }
     }
