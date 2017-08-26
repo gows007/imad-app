@@ -28,7 +28,7 @@ var pool = new Pool(config);
 var app = express();
 
 app.use(session({
-    secret: 'randomSecretText',
+    secret: 'randomSecretText'
 }));
 app.use(morgan('combined'));
 app.use(bodyParser.json());
